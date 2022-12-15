@@ -1,9 +1,9 @@
 import rucksack as ru
 
-FILE_DIR = './test_file.txt'
+FILE_DIR = './data/test_file.txt'
 
 class Test_format_input:
-    rucksacks = ru.format_input('./test_file.txt')
+    rucksacks = ru.format_input(FILE_DIR)
 
     def test_result_is_a_list(self):
         assert type(self.rucksacks) == list
@@ -37,7 +37,7 @@ class Test_format_input:
         assert (compartments[0] == 'PmmdzqPrV') and (compartments[1] == 'vPwwTWBwg')
 
 class Test_find_common_items:
-    rucksacks = ru.format_input('./test_file.txt')
+    rucksacks = ru.format_input(FILE_DIR)
 
     def test_common_items_is_a_list(self):
         assert type(ru.find_common_items(self.rucksacks[0])) == list

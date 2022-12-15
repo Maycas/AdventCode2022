@@ -6,7 +6,7 @@ sys.path.insert(0, parentdir)
 
 from lib.utils import read_list
 
-FILE_DIR = './rucksacks.txt'
+FILE_DIR = './data/rucksacks.txt'
 
 # read the rucksacks lines and split compartments
 def format_input(file_directory: str) -> list[list[str]]:
