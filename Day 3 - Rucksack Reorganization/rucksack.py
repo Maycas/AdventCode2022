@@ -1,5 +1,6 @@
 # Importing methods from utils
 import sys, os, inspect
+from typing import Callable
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir)
@@ -48,22 +49,32 @@ def assign_priorities(common_items: list, priorities: dict) :
     return priority_value
 
 
-def calculate_rucksack_sum_priority(file_directory: str) -> int:
-    priorities = generate_prio_dict()
-    rucksacks = split_rucksacks_compartments(file_directory)
-    sum_priority = 0
+# def calculate_rucksack_sum_priority(file_directory: str, priorities_dict: dict) -> int:
+#     rucksacks = split_rucksacks_compartments(file_directory)
+#     sum_priorities = 0
+
+#     for rucksack in rucksacks:
+#         common_items = find_common_items_per_rucksack(rucksack)
+#         sum_priorities += assign_priorities(common_items, priorities_dict)
+
+#     return sum_priorities
+
+
+def priorities_aggregation(file_directory: str, priorities_dict: dict, splitting_function: Callable[[str] ,list[list[str]]], common_matching_function: Callable[[list[list[str]]], list[str]], aggregation_function: Callable[[list], dict]) -> int:
+    rucksacks = splitting_function(file_directory)
+    sum_priorities = 0
 
     for rucksack in rucksacks:
-        common_items = find_common_items_per_rucksack(rucksack)
-        sum_priority += assign_priorities(common_items, priorities)
+        common_items = common_matching_function(rucksack)
+        sum_priorities += aggregation_function(common_items, priorities_dict)
 
-    return sum_priority
+    return sum_priorities
 
 
 def display_results(file_directory: str) -> None:
-    print(f"Part 1: Sum priorities of common items per elf rucksack -> {calculate_rucksack_sum_priority(file_directory)}")
+    priorities_dict = generate_prio_dict()
+
+    print(f"Part 1: Sum of priorities of common items per elf rucksack -> {priorities_aggregation(file_directory, priorities_dict, split_rucksacks_compartments, find_common_items_per_rucksack, assign_priorities)}")
     
-
-
 
 display_results(FILE_DIR)
