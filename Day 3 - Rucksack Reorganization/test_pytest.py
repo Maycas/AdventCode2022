@@ -3,7 +3,7 @@ import rucksack as ru
 FILE_DIR = './data/test_file.txt'
 
 class Test_format_input:
-    rucksacks = ru.format_input(FILE_DIR)
+    rucksacks = ru.split_rucksacks_compartments(FILE_DIR)
 
     def test_result_is_a_list(self):
         assert type(self.rucksacks) == list
@@ -37,19 +37,19 @@ class Test_format_input:
         assert (compartments[0] == 'PmmdzqPrV') and (compartments[1] == 'vPwwTWBwg')
 
 class Test_find_common_items:
-    rucksacks = ru.format_input(FILE_DIR)
+    rucksacks = ru.split_rucksacks_compartments(FILE_DIR)
 
     def test_common_items_is_a_list(self):
-        assert type(ru.find_common_items(self.rucksacks[0])) == list
+        assert type(ru.find_common_items_per_rucksack(self.rucksacks[0])) == list
 
     def test_example_1(self):
-        assert ru.find_common_items(self.rucksacks[0]) == ['p']
+        assert ru.find_common_items_per_rucksack(self.rucksacks[0]) == ['p']
     
     def test_example_2(self):
-        assert ru.find_common_items(self.rucksacks[1]) == ['L']
+        assert ru.find_common_items_per_rucksack(self.rucksacks[1]) == ['L']
     
     def test_example_3(self):
-        assert ru.find_common_items(self.rucksacks[2]) == ['P']
+        assert ru.find_common_items_per_rucksack(self.rucksacks[2]) == ['P']
     
 class Test_assign_priorities:
     priorities_dict = ru.generate_prio_dict()
@@ -69,7 +69,7 @@ class Test_assign_priorities:
     def test_example_2_common_items_2(self):
         assert ru.assign_priorities(['t', 's'], self.priorities_dict) == (20 + 19)
 
-class Test_calculate_priority_sum:
+class Test_calculate_rucksack_sum_priority:
 
     def test_e2e(self):
-        assert ru.calculate_priority_sum(FILE_DIR) == 157
+        assert ru.calculate_rucksack_sum_priority(FILE_DIR) == 157

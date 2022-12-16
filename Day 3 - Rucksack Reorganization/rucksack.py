@@ -8,8 +8,8 @@ from lib.utils import read_list
 
 FILE_DIR = './data/rucksacks.txt'
 
-# read the rucksacks lines and split compartments
-def format_input(file_directory: str) -> list[list[str]]:
+
+def split_rucksacks_compartments(file_directory: str) -> list[list[str]]:
     rucksacks = read_list(file_directory)
 
     formatted_list = []
@@ -21,8 +21,7 @@ def format_input(file_directory: str) -> list[list[str]]:
     return formatted_list
 
 
-# find common items in each compartment
-def find_common_items(rucksack: list[list[str]]) -> list[str]:
+def find_common_items_per_rucksack(rucksack: list[list[str]]) -> list[str]:
     common_items = []
     first_compartment = rucksack[0]
     second_compartment = rucksack[1]
@@ -34,7 +33,6 @@ def find_common_items(rucksack: list[list[str]]) -> list[str]:
     return common_items
 
 
-# generate priority dictionary
 def generate_prio_dict() -> dict:
     alphabet = "abcdefghijklmnopqrstuvwxyz"
     letters = alphabet + alphabet.upper()
@@ -42,25 +40,30 @@ def generate_prio_dict() -> dict:
 
     return { letters[idx]: priorities[idx] for idx in range(len(letters)) }
 
-# assign priorities
-def assign_priorities(common_items: list, priorities: dict):
+
+def assign_priorities(common_items: list, priorities: dict) :
     priority_value = 0
     for item in common_items:
         priority_value += priorities[item]
     return priority_value
-    
 
-# run algorithm
-def calculate_priority_sum(file_directory):
+
+def calculate_rucksack_sum_priority(file_directory: str) -> int:
     priorities = generate_prio_dict()
-    rucksacks = format_input(file_directory)
+    rucksacks = split_rucksacks_compartments(file_directory)
     sum_priority = 0
 
     for rucksack in rucksacks:
-        common_items = find_common_items(rucksack)
+        common_items = find_common_items_per_rucksack(rucksack)
         sum_priority += assign_priorities(common_items, priorities)
 
     return sum_priority
 
 
-print(calculate_priority_sum(FILE_DIR))
+def display_results(file_directory: str) -> None:
+    print(f"Part 1: Sum priorities of common items per elf rucksack -> {calculate_rucksack_sum_priority(file_directory)}")
+    
+
+
+
+display_results(FILE_DIR)
