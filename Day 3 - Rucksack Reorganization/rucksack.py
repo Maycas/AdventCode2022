@@ -10,6 +10,13 @@ from lib.utils import read_list
 FILE_DIR = './data/rucksacks.txt'
 
 
+def generate_prio_dict() -> dict:
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    letters = alphabet + alphabet.upper()
+    priorities = [num for num in range(1, 53)]
+
+    return { letters[idx]: priorities[idx] for idx in range(len(letters)) }
+
 def split_rucksacks_compartments(file_directory: str) -> list[list[str]]:
     rucksacks = read_list(file_directory)
 
@@ -21,6 +28,9 @@ def split_rucksacks_compartments(file_directory: str) -> list[list[str]]:
 
     return formatted_list
 
+def group_packs_of_3_rucksacks(file_directory: str) -> list[list[str]]:
+    rucksacks = read_list(file_directory)
+    return [rucksacks[idx:idx + 3] for idx in range(0, len(rucksacks), 3)]
 
 def find_common_items_per_rucksack(rucksack: list[list[str]]) -> list[str]:
     common_items = []
@@ -33,14 +43,8 @@ def find_common_items_per_rucksack(rucksack: list[list[str]]) -> list[str]:
             common_items.append(item)
     return common_items
 
-
-def generate_prio_dict() -> dict:
-    alphabet = "abcdefghijklmnopqrstuvwxyz"
-    letters = alphabet + alphabet.upper()
-    priorities = [num for num in range(1, 53)]
-
-    return { letters[idx]: priorities[idx] for idx in range(len(letters)) }
-
+def find_common_badges_in_rucksack():
+    pass
 
 def assign_priorities(common_items: list, priorities: dict) :
     priority_value = 0
@@ -76,5 +80,7 @@ def display_results(file_directory: str) -> None:
 
     print(f"Part 1: Sum of priorities of common items per elf rucksack -> {priorities_aggregation(file_directory, priorities_dict, split_rucksacks_compartments, find_common_items_per_rucksack, assign_priorities)}")
     
+
+    print(f"Part 2: Sum of priorities for badges of groups of 3 elves -> {None}")
 
 display_results(FILE_DIR)

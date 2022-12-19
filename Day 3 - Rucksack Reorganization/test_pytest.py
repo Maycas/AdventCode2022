@@ -2,20 +2,20 @@ import rucksack as ru
 
 FILE_DIR = './data/test_file.txt'
 
-class Test_format_input:
+class Test_split_rucksack_compartments:
     rucksacks = ru.split_rucksacks_compartments(FILE_DIR)
 
     def test_result_is_a_list(self):
         assert type(self.rucksacks) == list
 
     def test_result_is_nested_array_with_length_2(self):
-        length_is_2 = False
+        length_is_2 = []
         for rucksack in self.rucksacks:
             if len(rucksack) == 2:
-                length_is_2 = True
+                length_is_2.append(True)
             else:
-                length_is_2 = False
-        assert length_is_2    
+                length_is_2.append(False)
+        assert False not in length_is_2    
 
     def test_all_compartments_are_of_same_length(self):
         all_same_length = False
@@ -36,8 +36,37 @@ class Test_format_input:
         compartments = self.rucksacks[2]
         assert (compartments[0] == 'PmmdzqPrV') and (compartments[1] == 'vPwwTWBwg')
 
+class Test_group_packs_of_3_rucksacks:
+    rucksacks = ru.group_packs_of_3_rucksacks(FILE_DIR)
 
-class Test_find_common_items:
+    def test_result_is_a_list(self):
+        assert type(self.rucksacks) == list
+
+    def test_result_is_nested_array_with_length_3(self):
+        length_is_3 = []
+        for rucksack in self.rucksacks:
+            if len(rucksack) == 3:
+                length_is_3.append(True)
+            else:
+                length_is_3.append(False)
+        assert False not in length_is_3
+
+    def test_example_1(self):
+        assert self.rucksacks[0] == [
+            'vJrwpWtwJgWrhcsFMMfFFhFp',
+            'jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL',
+            'PmmdzqPrVvPwwTWBwg'
+        ]
+
+    def test_example_2(self):
+        assert self.rucksacks[1] == [
+            'wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn',
+            'ttgJtRGJQctTZtZT',
+            'CrZsJsPPZsGzwwsLwLmpwMDw'
+        ]
+
+
+class Test_find_common_items_per_rucksack:
     rucksacks = ru.split_rucksacks_compartments(FILE_DIR)
 
     def test_common_items_is_a_list(self):
