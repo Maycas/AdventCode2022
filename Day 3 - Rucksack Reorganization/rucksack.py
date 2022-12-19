@@ -43,26 +43,20 @@ def find_common_items_per_rucksack(rucksack: list[list[str]]) -> list[str]:
             common_items.append(item)
     return common_items
 
-def find_common_badges_in_rucksack():
-    pass
+def find_common_badges_in_grouped_rucksacks(rucksacks: list[str]) -> list[str]:
+    common_items = []
+    first, second, third = rucksacks
+
+    for item in first:
+        if ((item in second) and (item in third)) and (item not in common_items):
+            common_items.append(item)
+    return common_items
 
 def assign_priorities(common_items: list, priorities: dict) :
     priority_value = 0
     for item in common_items:
         priority_value += priorities[item]
     return priority_value
-
-
-# def calculate_rucksack_sum_priority(file_directory: str, priorities_dict: dict) -> int:
-#     rucksacks = split_rucksacks_compartments(file_directory)
-#     sum_priorities = 0
-
-#     for rucksack in rucksacks:
-#         common_items = find_common_items_per_rucksack(rucksack)
-#         sum_priorities += assign_priorities(common_items, priorities_dict)
-
-#     return sum_priorities
-
 
 def priorities_aggregation(file_directory: str, priorities_dict: dict, splitting_function: Callable[[str] ,list[list[str]]], common_matching_function: Callable[[list[list[str]]], list[str]], aggregation_function: Callable[[list], dict]) -> int:
     rucksacks = splitting_function(file_directory)
@@ -74,13 +68,11 @@ def priorities_aggregation(file_directory: str, priorities_dict: dict, splitting
 
     return sum_priorities
 
-
 def display_results(file_directory: str) -> None:
     priorities_dict = generate_prio_dict()
 
     print(f"Part 1: Sum of priorities of common items per elf rucksack -> {priorities_aggregation(file_directory, priorities_dict, split_rucksacks_compartments, find_common_items_per_rucksack, assign_priorities)}")
     
-
-    print(f"Part 2: Sum of priorities for badges of groups of 3 elves -> {None}")
+    print(f"Part 2: Sum of priorities for badges of groups of 3 elves -> {priorities_aggregation(file_directory, priorities_dict, group_packs_of_3_rucksacks, find_common_badges_in_grouped_rucksacks, assign_priorities)}")
 
 display_results(FILE_DIR)
