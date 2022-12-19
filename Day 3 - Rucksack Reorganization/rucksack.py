@@ -58,21 +58,21 @@ def assign_priorities(common_items: list, priorities: dict) :
         priority_value += priorities[item]
     return priority_value
 
-def priorities_aggregation(file_directory: str, priorities_dict: dict, splitting_function: Callable[[str] ,list[list[str]]], common_matching_function: Callable[[list[list[str]]], list[str]], aggregation_function: Callable[[list], dict]) -> int:
+def priorities_aggregation(file_directory: str, priorities_dict: dict, splitting_function: Callable[[str] ,list[list[str]]], common_matching_function: Callable[[list[list[str]]], list[str]]) -> int:
     rucksacks = splitting_function(file_directory)
     sum_priorities = 0
 
     for rucksack in rucksacks:
         common_items = common_matching_function(rucksack)
-        sum_priorities += aggregation_function(common_items, priorities_dict)
+        sum_priorities += assign_priorities(common_items, priorities_dict)
 
     return sum_priorities
 
 def display_results(file_directory: str) -> None:
     priorities_dict = generate_prio_dict()
 
-    print(f"Part 1: Sum of priorities of common items per elf rucksack -> {priorities_aggregation(file_directory, priorities_dict, split_rucksacks_compartments, find_common_items_per_rucksack, assign_priorities)}")
+    print(f"Part 1: Sum of priorities of common items per elf rucksack -> {priorities_aggregation(file_directory, priorities_dict, split_rucksacks_compartments, find_common_items_per_rucksack)}")
     
-    print(f"Part 2: Sum of priorities for badges of groups of 3 elves -> {priorities_aggregation(file_directory, priorities_dict, group_packs_of_3_rucksacks, find_common_badges_in_grouped_rucksacks, assign_priorities)}")
+    print(f"Part 2: Sum of priorities for badges of groups of 3 elves -> {priorities_aggregation(file_directory, priorities_dict, group_packs_of_3_rucksacks, find_common_badges_in_grouped_rucksacks)}")
 
 display_results(FILE_DIR)

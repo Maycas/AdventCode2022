@@ -118,10 +118,10 @@ class Test_priorities_aggregation:
     priorities_dict = ru.generate_prio_dict()
 
     def test_e2e_returns_int(self):
-        assert type(ru.priorities_aggregation(FILE_DIR, self.priorities_dict, ru.split_rucksacks_compartments, ru.find_common_items_per_rucksack, ru.assign_priorities)) == int
+        assert type(ru.priorities_aggregation(FILE_DIR, self.priorities_dict, ru.split_rucksacks_compartments, ru.find_common_items_per_rucksack)) == int
     
     def test_e2e_part1(self):
-        assert ru.priorities_aggregation(FILE_DIR, self.priorities_dict, ru.split_rucksacks_compartments, ru.find_common_items_per_rucksack, ru.assign_priorities) == 157
+        assert ru.priorities_aggregation(FILE_DIR, self.priorities_dict, ru.split_rucksacks_compartments, ru.find_common_items_per_rucksack) == 157
 
     def test_e2e_part2(self):
-        assert ru.priorities_aggregation(FILE_DIR, self.priorities_dict, ru.group_packs_of_3_rucksacks, ru.find_common_badges_in_grouped_rucksacks, ru.assign_priorities) == 70
+        assert ru.priorities_aggregation(FILE_DIR, self.priorities_dict, ru.group_packs_of_3_rucksacks, ru.find_common_badges_in_grouped_rucksacks) == 70
