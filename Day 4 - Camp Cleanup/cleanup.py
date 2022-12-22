@@ -8,7 +8,7 @@ from lib.utils import read_list
 
 FILE_DIR = './data/assignments.txt'
 
-def generate_zones(file_directory):
+def generate_zones(file_directory: str) -> list[list[int]]:
     lines = read_list(file_directory)
     
     # split elf zones
@@ -26,7 +26,7 @@ def generate_zones(file_directory):
 
     return sections
 
-def count_subsets(file_directory):
+def count_subsets(file_directory: str) -> int:
     zones = generate_zones(file_directory)
 
     is_subset = 0
@@ -39,7 +39,7 @@ def count_subsets(file_directory):
 
     return is_subset
 
-def count_overlaps(file_directory):
+def count_overlaps(file_directory: str) -> int:
     zones = generate_zones(file_directory)
 
     is_overlap = 0
