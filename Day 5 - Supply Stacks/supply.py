@@ -58,22 +58,44 @@ def create_operations_moves_dict(file_directory: str) -> list[dict]:
 
     return operations   
 
-def operate_crane(stacks: dict, moves: list[dict]) -> dict:   
+def operate_crate_mover_9000(stacks: dict, moves: list[dict]) -> dict:   
     for move in moves:
         qty = move['qty']
         crate_from = str(move['from'])
         crate_to = str(move['to'])
         
-        for idx in range(qty):
+        for _ in range(qty):
             if len(stacks[crate_from]) > 0:
                 crate_to_move = stacks[crate_from].pop()
                 stacks[crate_to].append(crate_to_move)   
     return stacks
 
-def top_elements_in_crates(file_directory: str) -> str:
+def operate_crate_mover_9001(stacks: dict, moves: list[dict]) -> dict:
+    for move in moves:
+        qty = move['qty']
+        crate_from = str(move['from'])
+        crate_to = str(move['to'])
+        
+        # remove the elements as they are and put them in another crate
+        crates_to_move = []
+        for _ in range(qty):
+            if len(stacks[crate_from]) > 0:
+                crates_to_move += stacks[crate_from].pop()
+            else:
+                break
+        crates_to_move.reverse()
+        stacks[crate_to] += crates_to_move
+
+    return stacks
+
+def top_elements_in_crates(file_directory: str, crate_mover_model: str) -> str:
     stacks = create_stacks_from_input(file_directory)
     moves = create_operations_moves_dict(file_directory)
-    moved_stacks = operate_crane(stacks, moves)
+    
+    if crate_mover_model == 'CrateMover 9000':
+        moved_stacks = operate_crate_mover_9000(stacks, moves)
+    else:
+        moved_stacks = operate_crate_mover_9001(stacks, moves)
     
     top_stacks = ''
     for top_stack in moved_stacks.values():
@@ -82,4 +104,5 @@ def top_elements_in_crates(file_directory: str) -> str:
     return top_stacks
 
 
-print(f"Part 1 - Top items in crates: {top_elements_in_crates(FILE_DIR)}")
+print(f"Part 1 - Top items in crates - CrateMover 9000: {top_elements_in_crates(FILE_DIR, 'CrateMover 9000')}")
+print(f"Part 2 - Top items in crates - CrateMover 9001: {top_elements_in_crates(FILE_DIR, 'CrateMover 9001')}")

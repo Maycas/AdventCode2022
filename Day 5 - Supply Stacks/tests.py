@@ -49,10 +49,10 @@ class Test_create_operations_moves_dict:
             },        
         ]
 
-class Test_operate_crane:
+class Test_operate_crate_mover_9000:
     stacks = ss.create_stacks_from_input(FILE_DIR)
     operations = ss.create_operations_moves_dict(FILE_DIR)
-    sorted_stacks = ss.operate_crane(stacks, operations)
+    sorted_stacks = ss.operate_crate_mover_9000(stacks, operations)
 
     def test_sorted_stacks_is_dict(self):
         assert type(self.sorted_stacks) == dict
@@ -64,11 +64,32 @@ class Test_operate_crane:
             '3': ['P', 'D', 'N', 'Z']
         }
 
-class Test_top_elements_in_crates:
-    top_stacks = ss.top_elements_in_crates(FILE_DIR)
+class Test_operate_crate_mover_9001:
+    stacks = ss.create_stacks_from_input(FILE_DIR)
+    operations = ss.create_operations_moves_dict(FILE_DIR)
+    sorted_stacks = ss.operate_crate_mover_9001(stacks, operations)
 
-    def test_stacks_is_str(self):
-        assert type(self.top_stacks) == str
+    def test_sorted_stacks_is_dict(self):
+        assert type(self.sorted_stacks) == dict
 
     def test_example(self):
-        assert self.top_stacks == 'CMZ'
+        assert self.sorted_stacks == {
+            '1': ['M'],
+            '2': ['C'],
+            '3': ['P', 'Z', 'N', 'D']
+        }
+
+
+class Test_top_elements_in_crates:
+    top_stacks_9000 = ss.top_elements_in_crates(FILE_DIR, 'CrateMover 9000')
+
+    top_stacks_9001 = ss.top_elements_in_crates(FILE_DIR, 'CrateMover 9001')
+
+    def test_stacks_is_str(self):
+        assert type(self.top_stacks_9000) == str and type(self.top_stacks_9001) == str
+
+    def test_example_9000(self):
+        assert self.top_stacks_9000 == 'CMZ'
+    
+    def test_example_9001(self):
+        assert self.top_stacks_9001 == 'MCD'
