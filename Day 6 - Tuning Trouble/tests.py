@@ -34,24 +34,23 @@ class Test_find_marker:
         marker = tng.find_marker('zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw', 4)
         assert marker == 11
 
-
-    def test_mjqjpqmgbljsphdztnvjfqwrcgsmlb_buff_16(self):
+    def test_mjqjpqmgbljsphdztnvjfqwrcgsmlb_buff_14(self):
         marker = tng.find_marker('mjqjpqmgbljsphdztnvjfqwrcgsmlb', 14)
         assert marker == 19
 
-    def test_bvwbjplbgvbhsrlpgdmjqwftvncz_buff_16(self):
+    def test_bvwbjplbgvbhsrlpgdmjqwftvncz_buff_14(self):
         marker = tng.find_marker('bvwbjplbgvbhsrlpgdmjqwftvncz', 14)
         assert marker == 23
 
-    def test_nppdvjthqldpwncqszvftbrmjlhg_buff_16(self):
+    def test_nppdvjthqldpwncqszvftbrmjlhg_buff_14(self):
         marker = tng.find_marker('nppdvjthqldpwncqszvftbrmjlhg', 14)
         assert marker == 23
 
-    def test_nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg_buff_16(self):
+    def test_nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg_buff_14(self):
         marker = tng.find_marker('nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg', 14)
         assert marker == 29
 
-    def test_zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw_buff_16(self):
+    def test_zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw_buff_14(self):
         marker = tng.find_marker('zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw', 14)
         assert marker == 26
 
